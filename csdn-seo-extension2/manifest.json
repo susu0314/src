@@ -1,0 +1,65 @@
+{
+  "manifest_version": 3,
+  "name": "CSDN SEO 页面检测",
+  "version": "1.0.0",
+  "description": "CSDN SEO 页面检测 Chrome 扩展",
+  "action": {
+    "default_icon": "assets/logo-48.png",
+    "default_title": "CSDN SEO 页面检测"
+  },
+  "background": {
+    "service_worker": "dist/background/index.mjs"
+  },
+  "icons": {
+    "16": "assets/logo-16.png",
+    "48": "assets/logo-48.png",
+    "128": "assets/logo-128.png"
+  },
+  "permissions": [
+    "storage",
+    "cookies",
+    "tabs",
+    "offscreen",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "dist/contentScripts/index.global.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://passport.csdn.net/login*"
+      ],
+      "js": [
+        "dist/content/passport.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "dist/contentScripts/style.css",
+        "assets/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
