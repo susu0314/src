@@ -1,0 +1,48 @@
+name: 生成实验报告 DOCX
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "实验报告/实验1_常用电子仪器的使用_完善版.md"
+      - ".github/workflows/生成实验报告.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 检查 Pandoc
+        run: |
+          if ! command -v pandoc >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y pandoc
+          fi
+          pandoc --version | head -n 1
+
+      - name: 生成 DOCX
+        run: |
+          mkdir -p "实验报告"
+          pandoc "实验报告/实验1_常用电子仪器的使用_完善版.md" \
+            --from markdown \
+            --to docx \
+            --output "实验报告/实验1_常用电子仪器的使用_完善版.docx"
+
+      - name: 提交生成结果
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "实验报告/实验1_常用电子仪器的使用_完善版.docx"
+          if git diff --cached --quiet; then
+            echo "没有需要提交的变化"
+            exit 0
+          fi
+          git commit -m "生成实验1实验报告DOCX [skip ci]"
+          git push
