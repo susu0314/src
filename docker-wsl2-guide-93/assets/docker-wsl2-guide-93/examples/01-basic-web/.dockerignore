@@ -1,0 +1,14 @@
+.git
+.vscode
+.idea
+__pycache__
+*.py[cod]
+.env
+.env.*
+.venv
+venv
+env
+node_modules
+*.log
+.pytest_cache
+README.md

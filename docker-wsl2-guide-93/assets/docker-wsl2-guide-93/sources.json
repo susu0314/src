@@ -1,0 +1,93 @@
+[
+  {
+    "file": "architecture.png",
+    "source_repository": "docker/docs",
+    "source_path": "content/get-started/images/docker-architecture.webp",
+    "source_blob_sha": "695c1be7bb920c3e3a969a5be5b9364acec7a920",
+    "source_url": "https://github.com/docker/docs/blob/main/content/get-started/images/docker-architecture.webp",
+    "license": "Apache-2.0",
+    "change": "WebP to PNG only",
+    "dimensions": [
+      1233,
+      651
+    ]
+  },
+  {
+    "file": "wsl2-enabled.png",
+    "source_repository": "docker/docs",
+    "source_path": "content/manuals/desktop/images/wsl2-enabled.png",
+    "source_blob_sha": "38274d4eed1bcbce6d2adb0a58e9f0e1a26e915c",
+    "source_url": "https://github.com/docker/docs/blob/main/content/manuals/desktop/images/wsl2-enabled.png",
+    "license": "Apache-2.0",
+    "change": "None",
+    "dimensions": [
+      910,
+      792
+    ]
+  },
+  {
+    "file": "image-layers.png",
+    "source_repository": "docker/docs",
+    "source_path": "content/get-started/docker-concepts/building-images/images/container_image_layers.webp",
+    "source_blob_sha": "ad1d222b1515b845d1272cae7f31d8245c575455",
+    "source_url": "https://github.com/docker/docs/blob/main/content/get-started/docker-concepts/building-images/images/container_image_layers.webp",
+    "license": "Apache-2.0",
+    "change": "WebP to PNG only",
+    "dimensions": [
+      1374,
+      954
+    ]
+  },
+  {
+    "file": "published-ports.png",
+    "source_repository": "docker/docs",
+    "source_path": "content/get-started/docker-concepts/running-containers/images/published-ports.webp",
+    "source_blob_sha": "26482c9f259be90d6f80f3d96ac04c00a168ca7f",
+    "source_url": "https://github.com/docker/docs/blob/main/content/get-started/docker-concepts/running-containers/images/published-ports.webp",
+    "license": "Apache-2.0",
+    "change": "WebP to PNG only",
+    "dimensions": [
+      2744,
+      1426
+    ]
+  },
+  {
+    "file": "thinking.png",
+    "source_repository": "twitter/twemoji",
+    "source_path": "assets/72x72/1f914.png",
+    "source_blob_sha": "354f5a14e28b1df7532c1bc238e7aa38da43a389",
+    "source_url": "https://github.com/twitter/twemoji/blob/main/assets/72x72/1f914.png",
+    "license": "CC-BY-4.0",
+    "change": "None",
+    "dimensions": [
+      72,
+      72
+    ]
+  },
+  {
+    "file": "sweat-smile.png",
+    "source_repository": "twitter/twemoji",
+    "source_path": "assets/72x72/1f605.png",
+    "source_blob_sha": "bfc7c287f5c0b2e1c370e6a0d812cd44e0a82f75",
+    "source_url": "https://github.com/twitter/twemoji/blob/main/assets/72x72/1f605.png",
+    "license": "CC-BY-4.0",
+    "change": "None",
+    "dimensions": [
+      72,
+      72
+    ]
+  },
+  {
+    "file": "virtualization-enabled.png",
+    "source_repository": "docker/docs",
+    "source_path": "content/manuals/desktop/images/virtualization-enabled.png",
+    "source_blob_sha": "e7dd271e15135a6de28da6861a6c40d00d246754",
+    "source_url": "https://github.com/docker/docs/blob/main/content/manuals/desktop/images/virtualization-enabled.png",
+    "license": "Apache-2.0",
+    "change": "None",
+    "dimensions": [
+      1722,
+      1490
+    ]
+  }
+]
