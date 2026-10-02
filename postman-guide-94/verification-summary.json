@@ -1,0 +1,284 @@
+{
+  "checked_on": "2026-10-02",
+  "runtime": {
+    "os": "Linux",
+    "python": "3.12.14",
+    "node": "24.19.0",
+    "flask": "3.1.2",
+    "newman": "6.2.1"
+  },
+  "public_get": {
+    "url": "https://jsonplaceholder.typicode.com/users/1",
+    "status": 200,
+    "verified_fields": {
+      "id": 1,
+      "username": "Bret"
+    }
+  },
+  "collection_schema": "2.1.0 official JSON Schema: passed",
+  "iterations": 3,
+  "requests": 48,
+  "assertions": 90,
+  "failures": 0,
+  "remaining_users": 0,
+  "execution": [
+    {
+      "name": "01 Health",
+      "status": 200,
+      "iteration": 0
+    },
+    {
+      "name": "02 Login",
+      "status": 200,
+      "iteration": 0
+    },
+    {
+      "name": "03 Me",
+      "status": 200,
+      "iteration": 0
+    },
+    {
+      "name": "04 Create User",
+      "status": 201,
+      "iteration": 0
+    },
+    {
+      "name": "05 Get User",
+      "status": 200,
+      "iteration": 0
+    },
+    {
+      "name": "06 List Users",
+      "status": 200,
+      "iteration": 0
+    },
+    {
+      "name": "07 Patch User",
+      "status": 200,
+      "iteration": 0
+    },
+    {
+      "name": "08 Put User",
+      "status": 200,
+      "iteration": 0
+    },
+    {
+      "name": "09 Duplicate User",
+      "status": 409,
+      "iteration": 0
+    },
+    {
+      "name": "10 Missing Token",
+      "status": 401,
+      "iteration": 0
+    },
+    {
+      "name": "11 Forbidden Admin",
+      "status": 403,
+      "iteration": 0
+    },
+    {
+      "name": "12 Malformed JSON",
+      "status": 400,
+      "iteration": 0
+    },
+    {
+      "name": "13 Wrong Content Type",
+      "status": 415,
+      "iteration": 0
+    },
+    {
+      "name": "14 Invalid Field Type",
+      "status": 422,
+      "iteration": 0
+    },
+    {
+      "name": "15 Delete User",
+      "status": 204,
+      "iteration": 0
+    },
+    {
+      "name": "16 Confirm Deleted",
+      "status": 404,
+      "iteration": 0
+    },
+    {
+      "name": "01 Health",
+      "status": 200,
+      "iteration": 1
+    },
+    {
+      "name": "02 Login",
+      "status": 200,
+      "iteration": 1
+    },
+    {
+      "name": "03 Me",
+      "status": 200,
+      "iteration": 1
+    },
+    {
+      "name": "04 Create User",
+      "status": 201,
+      "iteration": 1
+    },
+    {
+      "name": "05 Get User",
+      "status": 200,
+      "iteration": 1
+    },
+    {
+      "name": "06 List Users",
+      "status": 200,
+      "iteration": 1
+    },
+    {
+      "name": "07 Patch User",
+      "status": 200,
+      "iteration": 1
+    },
+    {
+      "name": "08 Put User",
+      "status": 200,
+      "iteration": 1
+    },
+    {
+      "name": "09 Duplicate User",
+      "status": 409,
+      "iteration": 1
+    },
+    {
+      "name": "10 Missing Token",
+      "status": 401,
+      "iteration": 1
+    },
+    {
+      "name": "11 Forbidden Admin",
+      "status": 403,
+      "iteration": 1
+    },
+    {
+      "name": "12 Malformed JSON",
+      "status": 400,
+      "iteration": 1
+    },
+    {
+      "name": "13 Wrong Content Type",
+      "status": 415,
+      "iteration": 1
+    },
+    {
+      "name": "14 Invalid Field Type",
+      "status": 422,
+      "iteration": 1
+    },
+    {
+      "name": "15 Delete User",
+      "status": 204,
+      "iteration": 1
+    },
+    {
+      "name": "16 Confirm Deleted",
+      "status": 404,
+      "iteration": 1
+    },
+    {
+      "name": "01 Health",
+      "status": 200,
+      "iteration": 2
+    },
+    {
+      "name": "02 Login",
+      "status": 200,
+      "iteration": 2
+    },
+    {
+      "name": "03 Me",
+      "status": 200,
+      "iteration": 2
+    },
+    {
+      "name": "04 Create User",
+      "status": 201,
+      "iteration": 2
+    },
+    {
+      "name": "05 Get User",
+      "status": 200,
+      "iteration": 2
+    },
+    {
+      "name": "06 List Users",
+      "status": 200,
+      "iteration": 2
+    },
+    {
+      "name": "07 Patch User",
+      "status": 200,
+      "iteration": 2
+    },
+    {
+      "name": "08 Put User",
+      "status": 200,
+      "iteration": 2
+    },
+    {
+      "name": "09 Duplicate User",
+      "status": 409,
+      "iteration": 2
+    },
+    {
+      "name": "10 Missing Token",
+      "status": 401,
+      "iteration": 2
+    },
+    {
+      "name": "11 Forbidden Admin",
+      "status": 403,
+      "iteration": 2
+    },
+    {
+      "name": "12 Malformed JSON",
+      "status": 400,
+      "iteration": 2
+    },
+    {
+      "name": "13 Wrong Content Type",
+      "status": 415,
+      "iteration": 2
+    },
+    {
+      "name": "14 Invalid Field Type",
+      "status": 422,
+      "iteration": 2
+    },
+    {
+      "name": "15 Delete User",
+      "status": 204,
+      "iteration": 2
+    },
+    {
+      "name": "16 Confirm Deleted",
+      "status": 404,
+      "iteration": 2
+    }
+  ],
+  "bad_login": {
+    "exit_code": 1,
+    "requests": 2,
+    "continued_to_users": false
+  },
+  "target_guard": {
+    "exit_code": 1,
+    "requests_received_by_disallowed_local_port": 0
+  },
+  "not_tested": [
+    "Postman desktop GUI import/Runner",
+    "Windows installation and commands",
+    "Web agents",
+    "Second instance Test environment",
+    "Cookie / session scenarios",
+    "TLS and file upload scenarios",
+    "Postman CLI and Collection 3.0"
+  ]
+}

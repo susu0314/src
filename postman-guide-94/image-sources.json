@@ -1,0 +1,98 @@
+[
+  {
+    "file": "request-builder-v10.jpg",
+    "source": "https://assets.postman.com/postman-docs/v10/postman-request-builder-v10.jpg",
+    "author": "Postman",
+    "rights": "Official documentation screenshot; no blanket open license asserted",
+    "kind": "UI example; original bytes preserved",
+    "width": 1530,
+    "height": 1256,
+    "bytes": 218241,
+    "sha256": "2b67daff0f29db361eba83ffebfca6c138027caf6759f4505732c8f4041f7686",
+    "retrieved_on": "2026-10-02"
+  },
+  {
+    "file": "json-body.jpg",
+    "source": "https://assets.postman.com/postman-docs/body-raw-data.jpg",
+    "author": "Postman",
+    "rights": "Official documentation screenshot; no blanket open license asserted",
+    "kind": "UI example; original bytes preserved",
+    "width": 1240,
+    "height": 592,
+    "bytes": 65275,
+    "sha256": "c3d68fc007456c6d4ca36725735976be15f66dc0ca39ff1e085abb7f899fc955",
+    "retrieved_on": "2026-10-02"
+  },
+  {
+    "file": "form-data-v9.jpg",
+    "source": "https://assets.postman.com/postman-docs/form-data-v9.jpg",
+    "author": "Postman",
+    "rights": "Official documentation screenshot; no blanket open license asserted",
+    "kind": "UI example; original bytes preserved",
+    "width": 1448,
+    "height": 678,
+    "bytes": 76452,
+    "sha256": "2b4ef291eebfc81e8434ea3280b02b8ed84c4850abef8bdf81d44fda7c324cb0",
+    "retrieved_on": "2026-10-02"
+  },
+  {
+    "file": "tests-tab-v9.jpg",
+    "source": "https://assets.postman.com/postman-docs/request-test-tab-v9.jpg",
+    "author": "Postman",
+    "rights": "Official documentation screenshot; no blanket open license asserted",
+    "kind": "UI example; original bytes preserved",
+    "width": 1706,
+    "height": 1218,
+    "bytes": 285408,
+    "sha256": "039ea5410ec756fe9b16ae5fa711b0f13377e32fdd780a43d6dda9281847293f",
+    "retrieved_on": "2026-10-02"
+  },
+  {
+    "file": "runner-results-v10.jpg",
+    "source": "https://assets.postman.com/postman-docs/v10/collection-runner-run-results.jpg",
+    "author": "Postman",
+    "rights": "Official documentation screenshot; no blanket open license asserted",
+    "kind": "UI example; original bytes preserved",
+    "width": 1150,
+    "height": 892,
+    "bytes": 100937,
+    "sha256": "33160034e7b84f6fb886c82a9525c5824fd29d3d60a57a40fa2fb642a52597e9",
+    "retrieved_on": "2026-10-02"
+  },
+  {
+    "file": "postmanaut-learning.png",
+    "source": "https://github.com/postmanlabs/labs-docs/blob/develop/src/assets/postmanaut-learning.png",
+    "author": "Postman",
+    "rights": "Apache-2.0",
+    "kind": "Learning illustration; original bytes preserved",
+    "width": 600,
+    "height": 350,
+    "bytes": 47913,
+    "sha256": "698891fc01367dbcd3cd80fe267dca9e2dd4e1156a02acf70aa6936abd4d6306",
+    "retrieved_on": "2026-10-02"
+  },
+  {
+    "file": "thinking-face.png",
+    "source": "https://github.com/twitter/twemoji/blob/master/assets/72x72/1f914.png",
+    "author": "Twitter and contributors",
+    "rights": "CC-BY-4.0",
+    "kind": "Emoji; original bytes preserved",
+    "width": 72,
+    "height": 72,
+    "bytes": 1028,
+    "sha256": "5116f7d07677f06785887c0af23c189b541a306d6b792d605ffaf3ed9f0e912d",
+    "retrieved_on": "2026-10-02"
+  },
+  {
+    "file": "sweat-smile.png",
+    "source": "https://github.com/twitter/twemoji/blob/master/assets/72x72/1f605.png",
+    "author": "Twitter and contributors",
+    "rights": "CC-BY-4.0",
+    "kind": "Emoji; original bytes preserved",
+    "width": 72,
+    "height": 72,
+    "bytes": 998,
+    "sha256": "723bceeff120314bc0b84d09adc1fa250a25361d04ff700964fdee58819b20cd",
+    "retrieved_on": "2026-10-02"
+  }
+]

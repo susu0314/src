@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+*.sqlite3
+*.sqlite3-*
+newman/
+*.local.json
+node_modules/

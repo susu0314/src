@@ -1,0 +1,81 @@
+{
+  "checked_on": "2026-10-02",
+  "references": [
+    {
+      "title": "Postman：Post-response 与测试脚本",
+      "url": "https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/"
+    },
+    {
+      "title": "Postman：Agent 与本地访问",
+      "url": "https://learning.postman.com/docs/getting-started/basics/about-postman-agent/"
+    },
+    {
+      "title": "Postman：参数与 Body",
+      "url": "https://learning.postman.com/docs/use/send-requests/create-requests/parameters/"
+    },
+    {
+      "title": "Postman：请求 Header",
+      "url": "https://learning.postman.com/docs/use/send-requests/create-requests/headers/"
+    },
+    {
+      "title": "Postman：Authorization 类型",
+      "url": "https://learning.postman.com/docs/use/send-requests/authorization/authorization-types/"
+    },
+    {
+      "title": "Postman：Collection Runner",
+      "url": "https://learning.postman.com/docs/tests-and-scripts/running-collections/intro-to-collection-runs/"
+    },
+    {
+      "title": "Postman：变量范围与优先级",
+      "url": "https://learning.postman.com/docs/use/send-requests/variables/variables/"
+    },
+    {
+      "title": "Postman：变量定义与新版值模型",
+      "url": "https://learning.postman.com/docs/use/send-requests/variables/define-variables/"
+    },
+    {
+      "title": "Postman：Collection Schema 与 3.0 / Newman 边界",
+      "url": "https://learning.postman.com/docs/use/use-collections/collections-schemas/"
+    },
+    {
+      "title": "RFC 9110：HTTP Semantics",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html"
+    },
+    {
+      "title": "RFC 5789：PATCH Method",
+      "url": "https://www.rfc-editor.org/rfc/rfc5789.html"
+    },
+    {
+      "title": "JSONPlaceholder：公开 API 与模拟写入说明",
+      "url": "https://jsonplaceholder.typicode.com/"
+    },
+    {
+      "title": "Postman：Pre-request Script",
+      "url": "https://learning.postman.com/docs/tests-and-scripts/write-scripts/pre-request-scripts/"
+    },
+    {
+      "title": "Postman：Cookie 管理",
+      "url": "https://learning.postman.com/docs/use/send-requests/response-data/cookies/"
+    },
+    {
+      "title": "Postman：Console 与请求排查",
+      "url": "https://learning.postman.com/docs/use/send-requests/response-data/troubleshooting-api-requests/"
+    },
+    {
+      "title": "Postman：证书配置",
+      "url": "https://learning.postman.com/docs/use/send-requests/authorization/certificates/"
+    },
+    {
+      "title": "Postman：生成客户端代码",
+      "url": "https://learning.postman.com/docs/use/send-requests/create-requests/generate-code-snippets/"
+    },
+    {
+      "title": "Postman：Newman 命令行与格式兼容性",
+      "url": "https://learning.postman.com/docs/reference/newman-cli/command-line-integration-with-newman/"
+    },
+    {
+      "title": "Postman：请求跳过与集合执行控制",
+      "url": "https://learning.postman.com/docs/tests-and-scripts/write-scripts/postman-sandbox-reference/pm-execution/"
+    }
+  ]
+}

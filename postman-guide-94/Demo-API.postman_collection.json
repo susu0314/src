@@ -1,0 +1,638 @@
+{
+  "info": {
+    "name": "Postman 实战指南 - Local Demo API",
+    "description": "仅用于本地教学。按编号执行；Negative 文件夹中的 4xx 是预期结果。Collection 2.1 JSON，用于导入与 Newman 验证。",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const base = pm.variables.get(\"base_url\");",
+          "const allowed = /^http:\\/\\/127\\.0\\.0\\.1:(8000|8001)$/.test(base || \"\");",
+          "if (!allowed) {",
+          "    pm.test(\"目标为允许的本地服务\", function () { pm.expect(allowed).to.equal(true); });",
+          "    pm.execution.setNextRequest(null);",
+          "    pm.execution.skipRequest();",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "00 Setup",
+      "item": [
+        {
+          "name": "01 Health",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/health",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"服务就绪\", function () { pm.expect(pm.response.json().status).to.equal(\"ok\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "02 Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/login",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"{{login_username}}\",\"password\":\"{{login_password}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "[\"access_token\", \"user_id\", \"demo_username\", \"demo_email\"].forEach(function (key) { pm.environment.unset(key); });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let body;",
+                  "pm.test(\"登录返回 200 和有效 token\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    body = pm.response.json();",
+                  "    pm.expect(body.access_token).to.be.a(\"string\").and.not.empty;",
+                  "    pm.expect(body.token_type).to.equal(\"Bearer\");",
+                  "    pm.expect(body.expires_in).to.equal(3600);",
+                  "});",
+                  "if (pm.response.code === 200 && body && typeof body.access_token === \"string\" && body.access_token.length > 0 && body.token_type === \"Bearer\" && body.expires_in === 3600) {",
+                  "    pm.environment.set(\"access_token\", body.access_token);",
+                  "} else {",
+                  "    pm.environment.unset(\"access_token\");",
+                  "    pm.execution.setNextRequest(null);",
+                  "    throw new Error(\"登录失败，停止链路并清除旧 token\");",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "01 Identity",
+      "item": [
+        {
+          "name": "03 Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/me"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"账号与角色\", function () { const body=pm.response.json(); pm.expect(body.id).to.equal(1001); pm.expect(body.username).to.equal(\"xiaosu\"); pm.expect(body.role).to.equal(\"developer\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02 Users",
+      "item": [
+        {
+          "name": "04 Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"{{demo_username}}\",\"email\":\"{{demo_email}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.unset(\"user_id\");",
+                  "const unique = pm.variables.replaceIn(\"{{$guid}}\");",
+                  "pm.environment.set(\"demo_username\", \"postman-\" + unique);",
+                  "pm.environment.set(\"demo_email\", \"postman-\" + unique + \"@example.com\");"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let body;",
+                  "pm.test(\"创建返回 201 和资源字段\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "    body = pm.response.json();",
+                  "    pm.expect(body.id).to.be.a(\"number\");",
+                  "    pm.expect(Number.isInteger(body.id) && body.id > 0).to.equal(true);",
+                  "    pm.expect(body.username).to.equal(pm.environment.get(\"demo_username\"));",
+                  "    pm.expect(body.email).to.equal(pm.environment.get(\"demo_email\"));",
+                  "    pm.expect(pm.response.headers.get(\"Location\")).to.equal(\"/api/users/\" + body.id);",
+                  "});",
+                  "if (pm.response.code === 201 && body && Number.isInteger(body.id) && body.id > 0 && body.username === pm.environment.get(\"demo_username\") && body.email === pm.environment.get(\"demo_email\") && pm.response.headers.get(\"Location\") === \"/api/users/\" + body.id) {",
+                  "    pm.environment.set(\"user_id\", String(body.id));",
+                  "} else {",
+                  "    pm.environment.unset(\"user_id\");",
+                  "    pm.execution.setNextRequest(null);",
+                  "    throw new Error(\"创建失败，停止链路，避免操作旧资源\");",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "05 Get User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/users/{{user_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"读取本轮创建的用户\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.id).to.equal(Number(pm.environment.get(\"user_id\")));",
+                  "    pm.expect(body.username).to.equal(pm.environment.get(\"demo_username\"));",
+                  "    pm.expect(body.email).to.equal(pm.environment.get(\"demo_email\"));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "06 List Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/users?page=1&limit=10"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"分页结构\", function () { const body=pm.response.json(); pm.expect(body.items).to.be.an(\"array\"); pm.expect(body.page).to.equal(1); pm.expect(body.limit).to.equal(10); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "07 Patch User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/users/{{user_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"changed@example.com\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"PATCH 只更新 email\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.id).to.equal(Number(pm.environment.get(\"user_id\")));",
+                  "    pm.expect(body.username).to.equal(pm.environment.get(\"demo_username\"));",
+                  "    pm.expect(body.email).to.equal(\"changed@example.com\");",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "08 Put User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/users/{{user_id}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"{{demo_username}}\",\"email\":\"{{demo_email}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"PUT 返回完整新表示\", function () {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.id).to.equal(Number(pm.environment.get(\"user_id\")));",
+                  "    pm.expect(body.username).to.equal(pm.environment.get(\"demo_username\"));",
+                  "    pm.expect(body.email).to.equal(pm.environment.get(\"demo_email\"));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03 Negative",
+      "item": [
+        {
+          "name": "09 Duplicate User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"{{demo_username}}\",\"email\":\"{{demo_email}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 409\", function () { pm.response.to.have.status(409); });",
+                  "pm.test(\"错误码 username_exists\", function () { pm.expect(pm.response.json().code).to.equal(\"username_exists\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "10 Missing Token",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/me",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 401\", function () { pm.response.to.have.status(401); });",
+                  "pm.test(\"错误码 unauthorized\", function () { pm.expect(pm.response.json().code).to.equal(\"unauthorized\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "11 Forbidden Admin",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/admin"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 403\", function () { pm.response.to.have.status(403); });",
+                  "pm.test(\"错误码 forbidden\", function () { pm.expect(pm.response.json().code).to.equal(\"forbidden\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "12 Malformed JSON",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"错误码 invalid_json\", function () { pm.expect(pm.response.json().code).to.equal(\"invalid_json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "13 Wrong Content Type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "text/plain"
+              }
+            ],
+            "url": "{{base_url}}/api/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"unused\",\"email\":\"unused@example.com\"}",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 415\", function () { pm.response.to.have.status(415); });",
+                  "pm.test(\"错误码 unsupported_media_type\", function () { pm.expect(pm.response.json().code).to.equal(\"unsupported_media_type\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "14 Invalid Field Type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":123,\"email\":\"unused@example.com\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 422\", function () { pm.response.to.have.status(422); });",
+                  "pm.test(\"错误码 invalid_fields\", function () { pm.expect(pm.response.json().code).to.equal(\"invalid_fields\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04 Cleanup",
+      "item": [
+        {
+          "name": "15 Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/users/{{user_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });",
+                  "pm.test(\"204 没有响应体\", function () { pm.expect(pm.response.text()).to.equal(\"\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "16 Confirm Deleted",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/users/{{user_id}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"错误码 not_found\", function () { pm.expect(pm.response.json().code).to.equal(\"not_found\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
